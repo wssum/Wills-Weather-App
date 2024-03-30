@@ -42,20 +42,24 @@ async function makeForecast(slot){
    return forecast;
   }
 
-async function populateWeatherData() {
+  async function populateWeatherData() {
     let promises = [];
     for(let i = 0; i < 7; i++){
         promises.push(makeForecast(i));
     }
 
-    Promise.all(promises).then(forecasts => {
+    return Promise.all(promises).then(forecasts => {
         forecasts.forEach(data => {
             let precip = dryOrWetDay(data);
             data.precip = precip;
             weatherData.push(data);
         });
-    }).catch(err => console.log(err));
+        return weatherData;
+    }).catch(err => {
+        console.log(err);
+        throw err;
+    });
 }
 
-module.exports = [populateWeatherData,makeForecast,getDayName,
-    makeForecast,dryOrWetDay,getWeatherData,weatherData];
+module.exports = {populateWeatherData,makeForecast,getDayName,
+    makeForecast,dryOrWetDay,getWeatherData,weatherData};

@@ -7,7 +7,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get("/",(req,res)=>{
-    res.render('weather');
+    weatherFuncs.populateWeatherData().then((data)=>{
+        res.render('weather',{forecast:data});
+    }).catch((err)=>{console.log(err);})
 });
 
 app.listen(port, ()=>{
