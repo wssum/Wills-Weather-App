@@ -7,6 +7,23 @@
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
 
+#mainBar{
+   display: flex;
+}
+
+#forecastContainer{
+  display: flex;
+}
+
+#logo{
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
+#navOpts{
+  display: flex;
+}
+
 .active
 {
   background-color: crimson;

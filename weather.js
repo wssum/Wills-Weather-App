@@ -13,11 +13,11 @@ function dryOrWetDay(day){
 
     if(day.precipitations > 2.5)
     {
-       return (overallTemp >= 1)?"Heavy Rain":"Heavy Snow";
+       return (overallTemp >= 1)?"Heavy-Rain":"Heavy-Snow";
     }else if(day.precipitations <= 2.5 && day.precipitations >= 1.2){
-        return (overallTemp >= 1)?"Light Rain":"Light Snow";
+        return (overallTemp >= 1)?"Light-Rain":"Light-Snow";
     }
-    return "sunny";
+    return "Sunny";
 }
 
 
@@ -43,22 +43,28 @@ async function makeForecast(slot){
   }
 
   async function populateWeatherData() {
-    let promises = [];
-    for(let i = 0; i < 7; i++){
-        promises.push(makeForecast(i));
+    if(weatherData.length === 0){
+        let promises = [];
+        for(let i = 0; i < 7; i++){
+            promises.push(makeForecast(i));
+        }
+    
+        return Promise.all(promises).then(forecasts => {
+            forecasts.forEach(data => {
+                let precip = dryOrWetDay(data);
+                data.precip = precip;
+                data.img = '/'+precip+".jpg";
+                weatherData.push(data);
+            });
+            return weatherData;
+        }).catch(err => {
+            console.log(err);
+            throw err;
+        });
     }
 
-    return Promise.all(promises).then(forecasts => {
-        forecasts.forEach(data => {
-            let precip = dryOrWetDay(data);
-            data.precip = precip;
-            weatherData.push(data);
-        });
-        return weatherData;
-    }).catch(err => {
-        console.log(err);
-        throw err;
-    });
+    return Promise.resolve(weatherData);
+    
 }
 
 module.exports = {populateWeatherData,makeForecast,getDayName,
