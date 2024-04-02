@@ -3,11 +3,11 @@
     <link rel="stylesheet" href="/css/main.css" />
 </head>
 <body>
-    <%- include('partial/navbar', {page: '/'}) %>
+    <%- include('partial/navbar') %>
     <div class="hero min-h-100px bg-base-200">
         <div class="hero-content text-center">
           <div class="max-w-md">
-            <h1 class="text-5xl font-bold">Hello there</h1>
+            <h1 class="text-5xl font-bold">Toronto Weather Web </h1>
             <p class="py-6">Welcome to my weather forecasting web application. Hope you enjoy your day.</p>
           </div>
           </div>
@@ -18,8 +18,10 @@
                     <div class="card-body">
                       <h2 class="card-title"><%=day.dayName%></h2>
                       <p><%=day.dayName%> will have <%=day.precip%></p>
+                      <p>High Forecast: <%=day.maxTemp%></p>
+                      <p>Low Forecast: <%=day.minTemp%></p>
                     </div>
-                    <figure><img src="<%=day.img%>" alt="<%=day.precip%>" /></figure>
+                    <figure><img src="<%=day.img%>"  alt="<%=day.precip%>" /></figure>
                   </div>
             <%});%>    
       </div>

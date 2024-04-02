@@ -14,6 +14,14 @@ app.get("/",(req,res)=>{
     }).catch((err)=>{console.log(err);})
 });
 
+app.get("/about",(req,res)=>{
+        res.render('about');
+});
+
+app.get("/creator",(req,res)=>{
+    res.render('creator');
+});
+
 app.listen(port, ()=>{
     console.log(`Standing by on ${port}`);
 });
